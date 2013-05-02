@@ -1,4 +1,3 @@
-#import <Foundation/Foundation.h>
 
 /**
  * Welcome to Cocoa Lumberjack!
@@ -31,12 +30,6 @@
  * DDLog works exactly the same as NSLog.
  * This means you can pass it multiple variables just like NSLog.
 **/
-
-
-@class DDLogMessage;
-
-@protocol DDLogger;
-@protocol DDLogFormatter;
 
 /**
  * This is the single macro that all other macros below compile into.
@@ -237,6 +230,15 @@
 #define DDLogCWarn(frmt, ...)    LOG_C_MAYBE(LOG_ASYNC_WARN,    ddLogLevel, LOG_FLAG_WARN,    0, frmt, ##__VA_ARGS__)
 #define DDLogCInfo(frmt, ...)    LOG_C_MAYBE(LOG_ASYNC_INFO,    ddLogLevel, LOG_FLAG_INFO,    0, frmt, ##__VA_ARGS__)
 #define DDLogCVerbose(frmt, ...) LOG_C_MAYBE(LOG_ASYNC_VERBOSE, ddLogLevel, LOG_FLAG_VERBOSE, 0, frmt, ##__VA_ARGS__)
+
+#ifdef __OBJC__
+
+#import <Foundation/Foundation.h>
+
+@class DDLogMessage;
+
+@protocol DDLogger;
+@protocol DDLogFormatter;
 
 /**
  * The THIS_FILE macro gives you an NSString of the file name.
@@ -599,3 +601,5 @@ typedef int DDLogMessageOptions;
 - (BOOL)isOnInternalLoggerQueue;
 
 @end
+
+#endif
